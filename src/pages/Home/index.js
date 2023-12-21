@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -15,18 +13,7 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const { data } = useData();
-  const [newData, setNewData] = useState();
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (data) {
-      setLoading(false);
-      setNewData(data.events.slice(-1));
-    } else {
-      setTimeout(() => {}, "1000");
-    }
-  }, [data]);
-
+  const { last } = useData();
   return (
     <>
       <header>
@@ -127,17 +114,13 @@ const Page = () => {
       <footer className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
-          {loading ? (
-            setTimeout(() => {}, "1000")
-          ) : (
-            <EventCard
-              imageSrc={newData[0].cover}
-              title={newData[0].title}
-              date={new Date(newData[0].date)}
-              small
-              label={newData[0].type}
-            />
-          )}
+          <EventCard
+            imageSrc={last?.cover}
+            title={last?.title}
+            date={new Date(last?.date)}
+            small
+            label={last?.type}
+          />
         </div>
         <div className="col contact">
           <h3>Contactez-nous</h3>

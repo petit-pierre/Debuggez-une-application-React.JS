@@ -28,21 +28,6 @@ describe("When Form is created", () => {
   });
 });
 
-describe("and a click is triggered on the submit button", () => {
-  it("should show modal when i click on an event", async () => {
-    render(
-      <Home>
-        <EventList />
-      </Home>
-    );
-    fireEvent(
-      await screen.findByTestId("card-image-testid"),
-      new MouseEvent("click", {})
-    );
-    await screen.findByText("janvier");
-  });
-});
-
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
     render(

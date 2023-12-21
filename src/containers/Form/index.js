@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
@@ -6,7 +6,7 @@ import Button, { BUTTON_TYPES } from "../../components/Button";
 
 const mockContactApi = () =>
   new Promise((resolve) => {
-    setTimeout(resolve, 1000);
+    setTimeout(resolve, 800);
   });
 
 const Form = ({ onSuccess, onError }) => {
@@ -19,6 +19,7 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess();
       } catch (err) {
         setSending(false);
         onError(err);
@@ -26,11 +27,7 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError]
   );
-  useEffect(() => {
-    if (sending === true) {
-      onSuccess();
-    }
-  }, [sending]);
+
   return (
     <form onSubmit={sendContact}>
       <div className="row">
